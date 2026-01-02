@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>My Search</title>
+  <style>
+    body {font-family: sans-serif; max-width: 700px; margin: 2rem auto;}
+    input {width: 70%; padding: 0.4rem;}
+    button {padding: 0.45rem 1rem; margin-left: 0.5rem;}
+    li {margin: 1rem 0;}
+  </style>
+</head>
+<body>
+  <h1>Search</h1>
+  <input id="q" placeholder="type keywords">
+  <button onclick="go()">Go</button>
+  <ul id="results"></ul>
+  <script>
+async function go(){
+  const q=document.getElementById('q').value;
+  const r=await fetch('/search?q='+encodeURIComponent(q));
+  const data=await r.json();
+  const ul=document.getElementById('results');
+  ul.innerHTML='';
+  data.forEach(d=>{
+    ul.innerHTML+=`<li><a href="${d.url}" target="_blank">${d.title}</a><p>${d.snippet}</p></li>`;
+  });
+}
+</script>
+</body>
+</html>
