@@ -21,6 +21,10 @@ if OpenSearch and OPENSEARCH_URL:
 
 app = FastAPI(title="Compass Search API", version="0.1.0")
 
+@app.get("/health")
+def health():
+    return {"status": "ok", "message": "Python runtime loaded"}
+
 # Allow frontend running on localhost ports to call the API
 app.add_middleware(
     CORSMiddleware,
